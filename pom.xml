@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>be.ugent.intec</groupId>
 	<artifactId>gtfs-filter</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 	<name>GTFS Filter</name>
 	<url>https://github.com/twalcari/gtfs-filter</url>
 
@@ -23,8 +23,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -81,7 +81,7 @@
 		<dependency>
 			<groupId>org.onebusaway</groupId>
 			<artifactId>onebusaway-gtfs</artifactId>
-			<version>1.2.4</version>
+			<version>11.2.2</version>
 		</dependency>
 		<!-- Collection library -->
 		<dependency>

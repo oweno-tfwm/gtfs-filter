@@ -12,6 +12,7 @@ import org.onebusaway.gtfs.model.ServiceCalendar;
 import org.onebusaway.gtfs.model.ServiceCalendarDate;
 import org.onebusaway.gtfs.model.ShapePoint;
 import org.onebusaway.gtfs.model.Stop;
+import org.onebusaway.gtfs.model.StopLocation;
 import org.onebusaway.gtfs.model.StopTime;
 import org.onebusaway.gtfs.model.Trip;
 import org.onebusaway.gtfs.services.GtfsDao;
@@ -24,7 +25,7 @@ import be.ugent.intec.gtfsfilter.predicates.ServiceCalendarDateByServiceIdsPredi
 import be.ugent.intec.gtfsfilter.predicates.ShapePointsByShapeIdsPredicate;
 import be.ugent.intec.gtfsfilter.predicates.StopTimeByRoutesPredicate;
 import be.ugent.intec.gtfsfilter.predicates.TripByRoutesPredicate;
-import be.ugent.intec.gtfsfilter.transformers.StopTimeToStopFunction;
+import be.ugent.intec.gtfsfilter.transformers.StopTimeToStopLocationFunction;
 import be.ugent.intec.gtfsfilter.transformers.TripToServiceIdFunction;
 import be.ugent.intec.gtfsfilter.transformers.TripToShapeIdFunction;
 
@@ -76,11 +77,15 @@ public class TransportTypeDaoFilter extends GtfsDaoFilter {
 		LOG.info("Filtered down from {} to {} stoptimes", input
 				.getAllStopTimes().size(), stoptimes.size());
 
+		Set<StopLocation> stopLocations = new HashSet<>();
+		stopLocations.addAll(Collections2.transform(stoptimes,
+				new StopTimeToStopLocationFunction()));
+				
 		stops = new HashSet<>();
-		stops.addAll(Collections2.transform(stoptimes,
-				new StopTimeToStopFunction()));
-		LOG.info("Filtered down from {} to {} stops", input.getAllStops()
-				.size(), stops.size());
+		stops.addAll(input.getAllStops());		
+		stops.retainAll(stopLocations);
+				
+		LOG.info("Filtered down from {} to {} stops", input.getAllStops().size(), stops.size());
 
 		serviceIds = new HashSet<>();
 		serviceIds.addAll(Collections2.transform(trips,

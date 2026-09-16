@@ -55,7 +55,8 @@ public class Main {
 		TRANSPORT_TYPES = new ImmutableMap.Builder<String, Integer>()
 				.put("tram", 0).put("subway", 1).put("rail", 2).put("bus", 3)
 				.put("ferry", 4).put("cablecar", 5).put("gondola", 6)
-				.put("funicular", 7).build();
+				.put("funicular", 7).put("trolleybus", 11).put("monorail", 12)
+				.put("coach", 200).build();
 	}
 
 	private final File input, output;
